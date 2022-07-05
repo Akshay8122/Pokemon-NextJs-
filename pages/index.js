@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 
-//Server side rendering using getServerSideProps
+//static->site generation using getStaticProps
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(
     "https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json"
   );
