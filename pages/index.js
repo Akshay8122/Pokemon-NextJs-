@@ -3,21 +3,20 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 
-//fetch data using simple client side Rendering
+//Server side rendering using getServerSideProps
 
-export default function Home() {
-  const [pokemon, setPokemon] = useState([]);
+export async function getServerSideProps() {
+  const res = await fetch(
+    "https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json"
+  );
+  return {
+    props: {
+      pokemon: await res.json(),
+    },
+  };
+}
 
-  useEffect(() => {
-    const getPokemon = async () => {
-      const res = await fetch(
-        "https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json"
-      );
-      setPokemon(await res.json());
-    };
-    getPokemon();
-  }, []);
-
+export default function Home({ pokemon }) {
   return (
     <div className={styles.container}>
       <Head>
